@@ -18,8 +18,7 @@ import com.berg.cursomc.domain.enums.TipoCliente;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-public class Cliente implements Serializable{
-	
+public class Cliente implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	@Id
@@ -29,14 +28,14 @@ public class Cliente implements Serializable{
 	private String email;
 	private String cpfOuCnpj;
 	private Integer tipo;
-	
+
 	@OneToMany(mappedBy = "cliente")
 	private List<Endereco> enderecos = new ArrayList<>();
-	
+
 	@ElementCollection
-	@CollectionTable(name="TELEFONE")
+	@CollectionTable(name = "TELEFONE")
 	private Set<String> telefones = new HashSet<>();
-	
+
 	@JsonIgnore
 	@OneToMany(mappedBy = "cliente")
 	private List<Pedido> pedidos = new ArrayList<>();
@@ -51,7 +50,7 @@ public class Cliente implements Serializable{
 		this.nome = nome;
 		this.email = email;
 		this.cpfOuCnpj = cpfOuCnpj;
-		this.tipo = tipo.getCod();
+		this.tipo = (tipo == null)? null :tipo.getCod();
 	}
 
 	public Integer getId() {
@@ -109,7 +108,7 @@ public class Cliente implements Serializable{
 	public void setTelefones(Set<String> telefones) {
 		this.telefones = telefones;
 	}
-	
+
 	public List<Pedido> getPedidos() {
 		return pedidos;
 	}
@@ -117,7 +116,6 @@ public class Cliente implements Serializable{
 	public void setPedidos(List<Pedido> pedidos) {
 		this.pedidos = pedidos;
 	}
-	
 
 	@Override
 	public int hashCode() {
@@ -143,8 +141,5 @@ public class Cliente implements Serializable{
 			return false;
 		return true;
 	}
-
-	
-	
 
 }
